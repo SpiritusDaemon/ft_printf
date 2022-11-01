@@ -1,7 +1,10 @@
 NAME = libftprintf.a
 
 
-FUNC = ft_printf.c
+FUNC = ft_printf.c \
+	ft_printf_utils.c \
+
+
 
 CC = cc
 
@@ -32,6 +35,9 @@ re:	clean
 	make all
 	make clean
 
+r:
+	make re && clear && ./main
+	
 bonus:
 
 .PHONY: all clean run fclean re bonus
