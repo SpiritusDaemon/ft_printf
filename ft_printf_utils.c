@@ -6,7 +6,7 @@
 /*   By: gmarques <gmarques@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:03:21 by gmarques          #+#    #+#             */
-/*   Updated: 2022/11/01 18:54:19 by gmarques         ###   ########.fr       */
+/*   Updated: 2022/11/02 22:07:45 by gmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,42 @@ int	ft_putchar(char c)
 	return (write (1, &c, 1));
 }
 
-static int	ft_putnbr_base2(long long n, int fd, char *base, long long size)
+static int	ft_putnbr_base2(long long n, char *base, long long size)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (n >= size || n <= -size)
-		i += ft_putnbr_base2(n / size, fd, base, size);
+		i += ft_putnbr_base2(n / size, base, size);
 	n %= size;
 	n = ((n >= 0) - (n < 0)) * n;
-	return (i + write(fd, &base[n], 1));
+	return (i + write(1, &base[n], 1));
 }
 
-int	ft_putnbr_base(long long n, int fd, char *base, long long size)
+int	ft_putnbr_base(long long n, char *base, long long size)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if (n < 0)
-		i = write(fd, "-", 1);
-	i += ft_putnbr_base2(n, fd, base, size);
+	if (n < 0 && size != 16)
+	{
+		i = write(1, "-", 1);
+		n *= -1;
+	}
+	i += ft_putnbr_base2(n, base, size);
 	return (i);
 }
 
-int	receive_ptr(unsigned long n)
+int	receive_ptr(long long n)
 {
-	int i;
+	int	i;
 
 	if (n == 0)
-		return (write(1, "(nil)", 6));
+		return (write(1, "(nil)", 5));
 	i = write(1, "0x", 2);
-	i += ft_putnbr_base(n, 1, "0123456789abcdef", 16);
+	if (n < 0)
+		return (i += write(1, "ffffffffffffffff", 16));
+	i += ft_putnbr_base(n, "0123456789abcdef", 16);
 	return (i);
 }
 
