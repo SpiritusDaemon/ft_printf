@@ -45,10 +45,7 @@ int	receive_ptr(unsigned long n)
 	int i;
 
 	if (n == 0)
-	{
-		write(1, "(nil)", 6);
-		return (0);
-	}
+		return (write(1, "(nil)", 6));
 	i = write(1, "0x", 2);
 
 	i += ft_putnbr_base(n, 1, "0123456789abcdef", 16);
