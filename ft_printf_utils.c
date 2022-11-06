@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarques <gmarques@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: gmarques <gmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:03:21 by gmarques          #+#    #+#             */
-/*   Updated: 2022/11/02 22:07:45 by gmarques         ###   ########.fr       */
+/*   Updated: 2022/11/06 13:08:33 by gmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,15 @@ static int	ft_putnbr_base2(long long n, char *base, long long size)
 	if (n >= size || n <= -size)
 		i += ft_putnbr_base2(n / size, base, size);
 	n %= size;
-	n = ((n >= 0) - (n < 0)) * n;
+	return (i + write(1, &base[n], 1));
+}
+int ft_unsigned_base(unsigned int n, char *base, int size)
+{
+	int i;
+	i = 0;
+	if (n >= size)
+		i += ft_unsigned_base(n / size, base, size);
+	n %= size;
 	return (i + write(1, &base[n], 1));
 }
 
@@ -43,16 +51,25 @@ int	ft_putnbr_base(long long n, char *base, long long size)
 	return (i);
 }
 
-int	receive_ptr(long long n)
+static int print_base_hex(unsigned long long n, char *base, int size)
+{
+	int	i;
+
+	i = 0;
+	if (n >= size)
+		i += print_base_hex(n / size, base, size);
+	n %= size;
+	return (i + write(1, &base[n], 1));
+
+}
+int	receive_ptr(unsigned long long n)
 {
 	int	i;
 
 	if (n == 0)
 		return (write(1, "(nil)", 5));
 	i = write(1, "0x", 2);
-	if (n < 0)
-		return (i += write(1, "ffffffffffffffff", 16));
-	i += ft_putnbr_base(n, "0123456789abcdef", 16);
+	i += print_base_hex(n, "0123456789abcdef", 16);
 	return (i);
 }
 
