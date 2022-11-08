@@ -6,7 +6,7 @@
 /*   By: gmarques <gmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:02:51 by gmarques          #+#    #+#             */
-/*   Updated: 2022/11/06 12:53:42 by gmarques         ###   ########.fr       */
+/*   Updated: 2022/11/06 13:15:27 by gmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ int	ft_cases(va_list arg, char *str, int i)
 	if (str[i] == 'u')
 		return (ft_unsigned_base(va_arg(arg, unsigned int), "0123456789", 10));
 	if (str[i] == 'x')
-		return (ft_putnbr_base(va_arg(arg, unsigned int), "0123456789abcdef", 16));
+		return (ft_putnbr_base(va_arg(arg, unsigned int)
+				, "0123456789abcdef", 16));
 	if (str[i] == 'X')
-		return (ft_putnbr_base(va_arg(arg, unsigned int), "0123456789ABCDEF", 16));
+		return (ft_putnbr_base(va_arg(arg, unsigned int)
+				, "0123456789ABCDEF", 16));
 	if (str[i] == '%')
 		return (write(1, "%%", 1));
 	return (0);

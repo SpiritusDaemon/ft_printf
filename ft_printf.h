@@ -6,7 +6,7 @@
 /*   By: gmarques <gmarques@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 17:06:35 by gmarques          #+#    #+#             */
-/*   Updated: 2022/11/06 11:44:03 by gmarques         ###   ########.fr       */
+/*   Updated: 2022/11/06 13:22:54 by gmarques         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ int				ft_putchar(char c);
 int				ft_putstr(char *str);
 int				ft_putnbr_base(long long n, char *base, long long size);
 int				receive_ptr(unsigned long long n);
-int ft_unsigned_base(unsigned int n, char *base, int size);
+int				ft_unsigned_base(unsigned int n, char *base, int size);
+int				print_base_hex(unsigned long long n, char *base, int size);
+
 #endif
